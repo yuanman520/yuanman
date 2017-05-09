@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>write_blog</title>
+    <link rel="icon" href="/static/images/icon.jpg" type="image/x-icon">
+     <style>
+         *{padding:0px;margin:0px}
+        body{background:#ffffcc;}
+        header{background:#333333;height:35px;position:relative;}
+        header img{padding-left:25px}
+        header span{position:absolute;color:rgba(255,255,255,0.8);font-size:17px;top:5px;cursor:pointer}
+        header span:last-child{right:50px;}
+        header span:hover{color:white}
+        form{width:70%;margin:50px auto;padding-left:12%;position:relative}
+        form input{width:35%;margin-bottom:50px;padding:5px 20px;border:none;border-bottom:1px solid lightgrey}
+        form textarea{position:absolute;width:65%;height:350px}
+    </style>
+</head>
+<body>
+     <div id="container">
+        <header>
+            <img src="/static/images/font.png.png" height="35px">
+            <span style="right:70px">返回首页</span>
+        </header>
+         <section>
+             <form action="/mongo/deal_handle" method="post">{% csrf_token %}
+                 <label>标题 ： <input type="text" name="title"></label><br>
+                 <label>作者 ： <input type="text" name="author" value="{{name}}" readonly="readonly"></label><br>
+                 <label for="content">内容 ： </label><textarea id="content" name="content"></textarea><br>
+                 <input type="submit" value="上传博客" style="position:absolute;width:180px;top:525px;left:65%;background:#339bff;color:white;cursor:pointer">
+             </form>
+         </section>
+     </div>
+</body>
+<script src="/static/js/jquery-1.9.0.min.js"></script>
+<script>
+    window.onload=function(){
+        $("header span").click(function(){
+            location.href="/mongo/index";
+        })
+    }
+</script>
+</html>

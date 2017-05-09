@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{user}} , 欢迎你</title>
+    <link rel="icon" href="/static/images/icon.jpg" type="image/x-icon">
+    <style>
+         *{padding:0px;margin:0px}
+        body{background:#ffffcc;}
+        header{background:#333333;height:35px;position:relative;}
+        header img{padding-left:25px}
+        header span{position:absolute;color:rgba(255,255,255,0.8);font-size:17px;top:5px;cursor:pointer}
+        header span:last-child{right:50px;}
+        header span:hover{color:white}
+        ul{list-style:none}
+        #container{min-width:992px;}
+        ul li{position:relative;height:210px;overflow:hidden;background:white;border:1px solid lightblue;border-radius:10px;}
+        ul li:hover{box-shadow:-1px 1px 3px 1px lightgrey;transform:translate(1px,-1px)}
+        #container>img{position:absolute;left:10px;top:45px;border-radius:5px}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <img src="/static/images/font.png.png" height="35px">
+            <span style="right:150px">首页</span>
+            <span id="write" style="right:210px">写博客 >></span>
+            <span>退出登录</span>
+        </header>
+        {% if img %}
+        <img src="/{{img}}" width="80px">
+        {% endif %}
+        {% if blogs %}
+        <ul>
+            {%  for blog in blogs %}
+            <li style="width:80%;margin:25px auto">
+                <input type="hidden" value={{blog.id}}>
+                <p style="text-align:center;padding:25px;font-size:18px">{{blog.title}}</p>
+                <span style="position:absolute;top:50px;left:70%">作者 : {{blog.author}}</span>
+                <div style="padding:30px 80px;text-indent:32px;">{{blog.content}}</div>
+                <span style="position:absolute;top:75px;left:70%">{{blog.time}}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+<script src="/static/js/jquery-1.9.0.min.js"></script>
+<script>
+    window.onload=function(){
+        $("ul li").click(function(){
+            var text=$(this).find("input").val();
+            location.href="/page/"+text;
+        })
+        $("header span:first").click(function(){
+            location.href="/index"
+        })
+
+        var name={{ pen_name|safe }};
+        localStorage.setItem("name",name);
+
+        $("header span:last").click(function(){
+            localStorage.clear();
+            location.href="/login?out=true";
+        })
+        $("#write").click(function(){
+            location.href="/write_blog?name="+name;
+        })
+    }
+</script>
+</html>

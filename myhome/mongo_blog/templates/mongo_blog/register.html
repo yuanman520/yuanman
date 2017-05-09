@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="icon" href="/static/images/icon.jpg" type="image/x-icon">
+    <style>
+        *{padding:0;margin:0}
+        ul{list-style:none}
+        form{width:80%;margin:100px auto;}
+        ul#outer li.text{margin-top:30px}
+        ul#outer li input{width:380px;height:35px;border:none;border-bottom:1px solid grey}
+        #inner li{display:inline-block;margin:8px 1px}
+        #inner li img{border-radius:2px;box-sizing:border-box;cursor:pointer}
+        #inner li img:hover{border:1px solid #ff7534}
+        #inner li img.click{border:1px solid #11c342}
+    </style>
+</head>
+<body>
+    <fieldset style="text-align:center">
+        <legend> 用户注册 </legend>
+        <form action="/mongo/handle" method="get">
+                <ul id="outer">
+                   <li class="text"><label>笔 名 ：<input type="text" id="input1" name="name"></label></li>
+                   <li class="text"><label>邮 箱 ：<input type="email" id="input2" name="user"></label></li>
+                   <li class="text"><label>密 码 ：<input type="password" id="input3" name="password"></label></li>
+                   <li style="margin-top:50px">
+                       <p style="padding:8px">笔者图标 : </p>
+                       <input type="hidden" name="address">
+                       <div>
+                           <ul id="inner">
+                               <li>
+                                   <img src="/static/images/book.jpg" width="50px" height="40px">
+                               </li>
+                               <li>
+                                   <img src="/static/images/coffee.jpg" width="50px" height="40px">
+                               </li>
+                               <li>
+                                   <img src="/static/images/cup.jpg" width="50px" height="40px">
+                               </li>
+                               <li>
+                                   <img src="/static/images/newpic.jpg" width="50px" height="40px">
+                               </li>
+                               <li>
+                                   <img src="/static/images/pic10.jpg" width="50px" height="40px">
+                               </li>
+                                <li>
+                                   <img src="/static/images/pic11.jpg" width="50px" height="40px">
+                               </li>
+                               <li>
+                                   <img src="/static/images/s-banner2.jpg" width="50px" height="40px">
+                               </li>
+                           </ul>
+                       </div>
+                   </li>
+                    <input type="submit" value="提 交" style="padding:3px 0px;border:none;color:white;width:230px;margin:25px;background:#3298ff;cursor:pointer;border-radius:5px">
+               </ul>
+        </form>
+    </fieldset>
+</body>
+<script src="/static/js/jquery-1.9.0.min.js"></script>
+<script>
+    window.onload=function(){
+        $("#inner li img").click(function(){
+            $("#inner li img").removeClass("click");
+            $(this).addClass("click");
+            var address=$(".click").attr("src");
+            $("input:hidden").val(address);
+        })
+
+    }
+</script>
+</html>
