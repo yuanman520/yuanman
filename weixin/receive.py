@@ -28,11 +28,11 @@ def parse_xml(data):
 class EventMsg(object):
     def __init__(self, xmlData):
         self.msg = textTpl
-        self.ToUserName = xmlData.find('ToUserName').text
-        self.FromUserName = xmlData.find('FromUserName').text
-        self.CreateTime = xmlData.find('CreateTime').text
-        self.MsgType = xmlData.find('MsgType').text
-        self.Event = xmlData.find('Event').text
+        self.tousername = xmlData.find('ToUserName').text
+        self.fromusername = xmlData.find('FromUserName').text
+        self.createtime = xmlData.find('CreateTime').text
+        self.msgtype = xmlData.find('MsgType').text
+        self.event = xmlData.find('Event').text
 
 class Msg(object):
     def __init__(self, data):
@@ -42,7 +42,7 @@ class Msg(object):
         self.createtime = data.find('CreateTime').text
         self.msgtype = data.find('MsgType').text
         self.content = data.find('Content').text
-        self.msgid = data.find('MsgId').text
+
     def send(self):
         return "success"
 
@@ -53,7 +53,8 @@ class Click(EventMsg):
         self.return_msg()
 
     def return_msg(self):
-        return self.Eventkey
+        out = textTpl % (self.fromusername, self.tousername, str(int(self.createtime)), self.msgtype, self.Eventkey)
+        return out
 
 class View(EventMsg):
     def __init__(self, xmlData):
@@ -62,7 +63,8 @@ class View(EventMsg):
         self.return_msg()
 
     def return_msg(self):
-        return self.Eventkey
+        out = textTpl % (self.fromusername, self.tousername, str(int(self.createtime)), self.msgtype, self.Eventkey)
+        return out
 
 class TextMsg(Msg):
     def __init__(self, data):
@@ -71,7 +73,7 @@ class TextMsg(Msg):
         self.return_msg()
 
     def return_msg(self):
-        out = textTpl % (self.fromusername, self.tousername, str(int(self.time.time())), self.msgtype, self.Content)
+        out = textTpl % (self.fromusername, self.tousername, str(int(self.createtime)), self.msgtype, self.Content)
         return out
 
 class Subscribe(EventMsg):
@@ -81,4 +83,5 @@ class Subscribe(EventMsg):
         self.return_msg()
 
     def return_msg(self):
-        return self.Eventkey
+        out = textTpl % (self.fromusername, self.tousername, str(int(self.createtime)), self.msgtype, self.Eventkey)
+        return out
