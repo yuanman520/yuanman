@@ -28,7 +28,8 @@ class MainHandler(tornado.web.RequestHandler):
 
     def post(self):
         body = self.request.body
-        receive.parse_xml(body)
+        msg = receive.parse_xml(body)
+        self.write(msg)
 
 
 

@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 import xml.etree.ElementTree as ET
 
+textTpl = """<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[%s]]></MsgType>
+                    <Content><![CDATA[%s]]></Content>
+                    </xml>"""
+
 def parse_xml(data):
     if len(data) == 0:
         return None
@@ -19,6 +27,7 @@ def parse_xml(data):
 
 class EventMsg(object):
     def __init__(self, xmlData):
+        self.msg = textTpl
         self.ToUserName = xmlData.find('ToUserName').text
         self.FromUserName = xmlData.find('FromUserName').text
         self.CreateTime = xmlData.find('CreateTime').text
@@ -26,8 +35,14 @@ class EventMsg(object):
         self.Event = xmlData.find('Event').text
 
 class Msg(object):
-    def __init__(self):
-        pass
+    def __init__(self, data):
+        self.msg = textTpl
+        self.tousername = data.find('ToUserName').text
+        self.fromusername = data.find('FromUserName').text
+        self.createtime = data.find('CreateTime').text
+        self.msgtype = data.find('MsgType').text
+        self.content = data.find('Content').text
+        self.msgid = data.find('MsgId').text
     def send(self):
         return "success"
 
@@ -35,22 +50,35 @@ class Click(EventMsg):
     def __init__(self, xmlData):
         EventMsg.__init__(self, xmlData)
         self.Eventkey = xmlData.find('EventKey').text
+        self.return_msg()
+
+    def return_msg(self):
         return self.Eventkey
 
 class View(EventMsg):
     def __init__(self, xmlData):
         EventMsg.__init__(self, xmlData)
         self.Eventkey = xmlData.find('EventKey').text
+        self.return_msg()
+
+    def return_msg(self):
         return self.Eventkey
 
 class TextMsg(Msg):
-    def __init__(self, xmlData):
-        Msg.__init__(self, xmlData)
-        self.Content = xmlData.find('Content').text.encode("utf-8")
-        return self.Content
+    def __init__(self, data):
+        Msg.__init__(self,data)
+        self.Content = data.find('Content').text.encode("utf-8")
+        self.return_msg()
+
+    def return_msg(self):
+        out = textTpl % (self.fromusername, self.tousername, str(int(self.time.time())), self.msgtype, self.Content)
+        return out
 
 class Subscribe(EventMsg):
     def __init__(self, xmlData):
         EventMsg.__init__(self, xmlData)
         self.Eventkey = xmlData.find('EventKey').text
-        return  self.Eventkey
+        self.return_msg()
+
+    def return_msg(self):
+        return self.Eventkey
