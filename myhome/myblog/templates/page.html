@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{blog.title}}</title>
+    <link rel="icon" href="/static/images/icon.jpg" type="image/x-icon">
+    <style>
+        *{padding:0px;margin:0px}
+        body{background:#ffffcc;}
+        header{background:#333333;height:35px;position:relative;}
+        header img{padding-left:25px}
+        header span{position:absolute;color:rgba(255,255,255,0.8);font-size:17px;top:5px;cursor:pointer}
+        header span:last-child{right:80px;}
+        header span:hover{color:white}
+        #container{min-width:992px;position:relative}
+        textarea{display:block;width:60%;height:180px;margin:10px auto}
+        ul{list-style:none}
+        div#nav span{display:inline-block;padding:4px 15px;background:#339bff;color:white;position:absolute;left:1%;cursor:pointer;}
+        div#nav span:first-child{top:50px}
+        div#nav span:last-child{top:85px}
+        div#nav{display:none}
+    </style>
+</head>
+<body>
+{% if message %}
+<p>{{message}}</p>
+{% else %}
+    <div id="container">
+        <p id="tip" style="display:none;position:absolute;top:35px;width:60%;left:20%;height:28px;background:#1eb847;color:white;border-radius:0 0 5px 5px;line-height:27px;text-align:center"></p>
+     <header>
+        <img src="/static/images/font.png.png" height="35px">
+        <span style="right:150px">首页</span>
+        <span>评论</span>
+    </header>
+        <div id="nav">
+            <span>修改博客</span>
+            <span>删除博客</span>
+        </div>
+    <section>
+        <p style="text-align:center;padding:50px;font-size:18px;">{{blog.title}}</p>
+        <p id="name_author" style="position:absolute;top:128px;left:52%">-- {{blog.author}}</p>
+        <img src="/{{img}}" width="150px" style="position:absolute;right:20px;top:45px">
+        <div style="text-indent:32px;padding:20px 60px">{{blog.content}}</div>
+        <div style="position:absolute;left:80%">{{blog.time}}</div>
+    </section>
+
+    <footer style="margin:60px">
+        <hr style="height:2px;">
+        <p style="text-align:center;font-size:17px;padding:15px">读者评论</p>
+        <form action="/comment_deal" method="post" onsubmit="return myclick()">{% csrf_token %}
+            <textarea name="text" placeholder="说点什么吧..."></textarea>
+            <input type="hidden" value="{{blog.id}}" name="id" id="id">
+            <input type="hidden" name="pen_name" id="pen_name">
+            <input type="submit" id="submit" value="评论" style="width:160px;padding:5px 15px;position:absolute;left:65%">
+        </form>
+
+        <div style="margin-top:100px">
+            <ul>
+                {% for item in comments %}
+                <li style="margin:30px 50px;background:lightgrey;padding:3px;border-radius:6px">
+                    <img src="/static/images/book.jpg" width="55px" height="45px" style="border-radius:6px">
+                    <span style="position:relative;left:15px;bottom:8px">{{item.comment_name}} : </span>
+                    <span style="position:relative;left:15px;bottom:8px">{{item.content}}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </footer>
+   <div>
+   {% endif %}
+</body>
+<script src="/static/js/jquery-1.9.0.min.js"></script>
+<script>
+        function myclick(){
+                var stext=$("textarea").val();
+                if(stext==""||stext==null){
+                    return false;
+                }
+        }
+    window.onload=function(){
+        $("header span:first").click(function(){
+            location.href="/index"
+        })
+         $("header span:last").click(function(){
+            var top=$("footer").offset().top;
+            $("html,body").animate({scrollTop:top},500)
+        })
+        var ss=localStorage.getItem("name");
+        $("footer form #pen_name").val(ss);
+        var name_author=$("#name_author").text().split(" ")[1];
+        if(ss!=undefined && name_author==ss){
+            $("#nav").show();
+        }
+        else{
+            $("#nav").hide();
+        }
+        var id=$("#id").val();
+        $("#nav span:first").click(function(){
+            location.href="/change_blog?id="+id;
+        })
+        $("#nav span:last").click(function(){
+            var flag=confirm("确定删除此文章吗？");
+            if(flag){
+                $.ajax({
+                    url:'/delete_handle?id='+id,
+                    type:'get',
+                    success:function(result){
+                        if(result.success==1){
+                            data=result.message;
+                            $("#tip").html(data).slideDown(600);
+                            setTimeout(function(){
+                                $("#tip").slideUp(500);
+                            },2500)
+                        }
+                        else{
+                            alert("error")
+                        }
+                    },
+                    error:function(){
+                        alert("请求错误")
+                    }
+                })
+            }
+        })
+    }
+</script>
+</html>

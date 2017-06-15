@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客首页</title>
+    <link rel="icon" href="/static/images/icon.jpg" type="image/x-icon">
+    <style>
+        *{padding:0px;margin:0px}
+        body{background:#ffffcc;}
+        header{background:#333333;height:35px;position:relative;}
+        header img{padding-left:25px}
+        header span{position:absolute;color:rgba(255,255,255,0.8);font-size:17px;top:5px;cursor:pointer}
+        header span:last-child{right:80px;}
+        header span:hover{color:white}
+        #ym img{position:absolute;right:0px;}
+        #last{text-align:center;position:relative;top:50px}
+        div.content{width:80%;height:auto;margin:0px auto;}
+        #content1{position:relative;margin:50px 0px 0px 10%;}
+        #content1 #leftcon{position:absolute;left:0;top:0;}
+        #leftcon span#item1{display:inline-block;width:200px;height:75px;background:#999900;position:absolute;border-radius:5px 5px 0 0;}
+        #leftcon span #ff{position:absolute;left:75px;}
+        #leftcon span #span0{position:absolute;top:55px;left:70px;font-size:13px;}
+        #leftcon img#pic0{position:absolute;top:75px;}
+        #content1 #decoration1{text-align:center;color:lightblue;font-size:16px;font-weight:bold;background:firebrick;width:50px;height:28px;position:absolute;
+					line-height:28px;right:-3px;top:8px;}
+		#content1 #decoration1:before{content:"";border-right:14px solid firebrick;border-bottom:14px solid firebrick;border-left:14px solid rgba(0,0,0,0);border-top:14px solid rgba(0,0,0,0);
+						position:absolute;left:-28px;top:0;}
+		#content1 #decoration1:after{content:"";border-left:14px solid firebrick;border-bottom:14px solid firebrick;border-right:14px solid rgba(0,0,0,0);border-top:14px solid rgba(0,0,0,0);
+						position:absolute;right:-28px;top:0;}
+		#content1 #item1:before{content:"";position:absolute;border-left:3px solid darkgrey;border-bottom:3px solid darkgrey;border-top:3px solid rgba(0,0,0,0);border-right:3px solid rgba(0,0,0,0);
+						top:-6px;right:64px;}
+		#content1 #item1:after{content:"";position:absolute;border-left:3px solid darkgrey;border-bottom:3px solid darkgrey;border-top:3px solid rgba(0,0,0,0);border-right:3px solid rgba(0,0,0,0);
+						top:63px;right:-6px;}
+		#content1 #decoration1{transform:rotate(45deg)}
+        div#leftcon .info{background:#999900;width:200px;height:30px;position:absolute;top:423px;left:0;text-align:center;cursor:pointer;}
+		div#leftcon .info:before{content:"";width:10px;height:30px;background:#999900;position:absolute;left:-10px;}
+		div#leftcon .info:after{content:"";border-right:5px solid #556B2F;border-bottom:4px solid #556B2F;border-left:5px solid rgba(0,0,0,0);
+								border-top:4px solid rgba(0,0,0,0);position:absolute;top:-8px;left:-10px;}
+		div#leftcon .info a{text-decoration:none;color:white;line-height:30px}
+        #rightcon{border-top:3px solid #999900;margin:0 0 0 210px;min-width:880px;height:460px}
+        #rightcon ul{list-style:none;}
+        #rightcon ul li{cursor:pointer;overflow:hidden;position:relative;display:inline-block;width:240px;height:210px;background:white;margin:10px;}
+        #rightcon ul li:hover{box-shadow:0px -1px 3px 1px lightgrey;transform:translate(0px,1px)}
+
+        #content2{position:relative;margin:36px 0px 0px 10%;}
+        #content2 #leftcon2{position:absolute;left:0;top:0;}
+        #content2 #decoration2{text-align:center;line-height:50px;color:orange;font-size:16px;font-weight:bold;background:#1c80f1;width:35px;height:60px;position:absolute;top:-6px;right:8px;border-radius:0 6px 0 0;}
+        #leftcon2 span#item2:after{content:"";position:absolute;border-bottom:15px solid orange;border-left:17.5px solid rgba(0,0,0,0);border-right:17.5px solid rgba(0,0,0,0);border-top:15px solid rgba(0,0,0,0);right:8px;top:24px}
+        #content2 #decoration2:before{content:"";background:#1c80f1;width:6px;height:6px;position:absolute;left:-6px;top:0px;}
+        #content2 #decoration2:after{content:"";background:lightblue;width:8px;height:6px;position:absolute;left:-8px;top:0px;border-radius:8px 8px 0 0;}
+
+        #leftcon2 span#item2{display:inline-block;width:200px;height:75px;background:orange;position:absolute;border-radius:5px 5px 0 0;}
+        #leftcon2 span #ff2{position:absolute;left:75px;}
+        #leftcon2 span #span2{position:absolute;top:55px;left:70px;font-size:13px;}
+        #leftcon2 img#pic2{position:absolute;top:75px;}
+        div#leftcon2 .info2{background:orange;width:200px;height:30px;position:absolute;top:423px;left:0;text-align:center;cursor:pointer;}
+        div#leftcon2 .info2:before{content:"";width:10px;height:30px;background:orange;position:absolute;left:-10px;}
+        div#leftcon2 .info2:after{content:"";border-right:5px solid #556B2F;border-bottom:4px solid #556B2F;border-left:5px solid rgba(0,0,0,0);
+                            border-top:4px solid rgba(0,0,0,0);position:absolute;top:-8px;left:-10px;}
+        div#leftcon2 .info2 a{text-decoration:none;color:white;line-height:30px}
+
+        #rightcon2{border-top:3px solid orange;margin:0 0 0 210px;min-width:880px;height:460px}
+        #rightcon2 ul{list-style:none;}
+        #rightcon2 ul li{overflow:hidden;position:relative;display:inline-block;width:240px;height:210px;background:white;margin:10px;cursor:pointer}
+        #rightcon2 ul li:hover{box-shadow:0px -1px 3px 1px lightgrey;transform:translate(0px,1px)}
+
+
+        #content3{position:relative;margin:36px 0px 0px 10%;}
+        #content3 #leftcon3{position:absolute;left:0;top:0;}
+        #content3 #decoration3{text-align:center;line-height:34px;color:red;font-size:16px;font-weight:bold;background:lightgrey;width:60px;height:35px;
+                        position:absolute;right:-6px;top:10px;}
+        #content3 #decoration3:before{content:"";border-bottom:17.5px solid rgba(0,0,0,0);border-top:17.5px solid rgba(0,0,0,0);border-right:16px solid lightgrey;
+                        position:absolute;right:60px;top:0px;}
+        #content3 #decoration3:after{content:"";border-top:3px solid grey;border-left:3px solid grey;border-right:3px solid rgba(0,0,0,0);border-bottom:3px solid rgba(0,0,0,0);
+                            position:absolute;top:35px;right:0px;}
+        #leftcon3 span#item3{display:inline-block;width:200px;height:75px;background:red;position:absolute;border-radius:5px 5px 0 0;}
+        #leftcon3 span #ff3{position:absolute;left:75px;}
+        #leftcon3 span #span3{position:absolute;top:55px;left:70px;font-size:13px;}
+        #leftcon3 img#pic3{position:absolute;top:75px;}
+        div#leftcon3 .info3{background:red;width:200px;height:30px;position:absolute;top:423px;left:0;text-align:center;cursor:pointer;}
+        div#leftcon3 .info3:before{content:"";width:10px;height:30px;background:red;position:absolute;left:-10px;}
+        div#leftcon3 .info3:after{content:"";border-right:5px solid firebrick;border-bottom:4px solid firebrick;border-left:5px solid rgba(0,0,0,0);
+                            border-top:4px solid rgba(0,0,0,0);position:absolute;top:-8px;left:-10px;}
+        div#leftcon3 .info3 a{text-decoration:none;color:white;line-height:30px}
+
+        #rightcon3{border-top:3px solid red;margin:0 0 0 210px;min-width:880px;height:460px}
+        #rightcon3 ul{list-style:none;}
+        #rightcon3 ul li{overflow:hidden;position:relative;display:inline-block;width:240px;height:210px;background:white;margin:10px;cursor:pointer}
+        #rightcon3 ul li:hover{box-shadow:0px -1px 3px 1px lightgrey;transform:translate(0px,1px)}
+
+		#guide{float:left;margin:18px 24px;padding:3px;position:fixed;top:180px;display:none;}
+		#guide li{opacity:0.5;list-style:none;width:65px;text-align:center;border-radius:15px;margin-top:15px}
+		#guide li a{text-decoration:none;color:black;font-size:12px;}
+		#guide li span{display:block;position:relative;top:-7px;left:-2px}
+    </style>
+</head>
+<body>
+<div id="container">
+    <header>
+        <img src="/static/images/font.png.png" height="35px">
+        <span style="right:150px">首页</span>
+        <span onclick="login()">登录</span>
+    </header>
+    <div id="ym">
+        <img src="/static/images/cup.jpg" height="55px">
+    </div>
+    <div id="content1" class="content">
+		<div id="leftcon">
+			<span id="item1">
+				<span id="decoration1">1 F</span>
+				<img id="ff" src="/static/images/icon.jpg" width="50px" alt="picture">
+				<span id="span0">热门博客</span>
+			</span>
+			<img id="pic0" src="/static/images/pic13.jpg" width="200px" height="350px" alt="picture">
+			<span class="info"><a href="javascript:void(0)">更多博客 &gt;</a></span>
+		</div>
+		<div id="rightcon" class="li">
+            <ul>
+				{% for blog in blogs1 %}
+                <li>
+					<input type="hidden" value="{{blog.id}}">
+					<div style="text-align:center;padding:18px;overflow:hidden;cursor:pointer">
+						<span>{{blog.title}}</span><span style="font-size:14px;position:absolute;right:15px;top:45px">—— {{blog.author}}</span>
+						 <p style="margin-top:30px;text-indent:32px;font-size:15px;padding:0px 12px">{{blog.content}}</p>
+					</div>
+                </li>
+				{% endfor %}
+            </ul>
+		</div>
+	</div>
+    <div id="content2" class="content">
+		<div id="leftcon2">
+			<span id="item2">
+				<span id="decoration2">2 F</span>
+				<img id="ff2" src="/static/images/icon.jpg" width="50px" alt="picture">
+				<span id="span2">科技博客</span>
+			</span>
+			<img id="pic2" src="/static/images/pic24.jpg" width="200px" height="350px" alt="picture">
+			<span class="info2"><a href="javascript:void(0)">更多博客 &gt;</a></span>
+		</div>
+		<div id="rightcon2" class="li">
+            <ul>
+               {% for blog in blogs2 %}
+                <li>
+					<input type="hidden" value="{{blog.id}}">
+					<div style="text-align:center;padding:18px;overflow:hidden">
+						<span>{{blog.title}}</span><span style="font-size:14px;position:absolute;right:15px;top:45px">—— {{blog.author}}</span>
+						 <p style="margin-top:30px;text-indent:32px;font-size:15px;padding:0px 12px">{{blog.content}}</p>
+					</div>
+                </li>
+				{% endfor %}
+            </ul>
+		</div>
+	</div>
+    <div id="content3" class="content">
+		<div id="leftcon3">
+			<span id="item3">
+				<span id="decoration3">3 F</span>
+				<img id="ff3" src="/static/images/icon.jpg" width="50px" alt="picture">
+				<span id="span3">生活博客</span>
+			</span>
+			<img id="pic3" src="/static/images/pic12.jpg" width="200px" height="350px" alt="picture">
+			<span class="info3"><a href="javascript:void(0)">更多博客 &gt;</a></span>
+		</div>
+		<div id="rightcon3" class="li">
+            <ul>
+                {% for blog in blogs3 %}
+                <li>
+					<input type="hidden" value="{{blog.id}}">
+					<div style="text-align:center;padding:18px;overflow:hidden">
+						<span>{{blog.title}}</span><span style="font-size:14px;position:absolute;right:15px;top:45px">—— {{blog.author}}</span>
+						 <p style="margin-top:30px;text-indent:32px;font-size:15px;padding:0px 12px">{{blog.content}}</p>
+					</div>
+                </li>
+				{% endfor %}
+            </ul>
+		</div>
+	</div>
+
+	<div id="guide">
+		<li id="ali1"><a id="a0" href="#content1"><img class="guidence1" src="/static/images/icon.jpg" width="40px"><span class="guidence1">热门博客</span></a></li>
+		<li id="ali2"><a id="a1" href="#content2"><img class="guidence2" src="/static/images/icon.jpg" width="40px"><span class="guidence2">科技博客</span></a></li>
+		<li id="ali3"><a id="a2" href="#content3"><img class="guidence3" src="/static/images/icon.jpg" width="40px"><span class="guidence3">生活博客</span></a></li>
+	</div>
+    <div id="last">
+        <img src="static/images/footer_bg.jpg">
+    </div>
+</div>
+</body>
+<script src="/static/js/jquery-1.9.0.min.js"></script>
+<script>
+    function login(){
+        location.href="login";
+    }
+   $(document).ready(function(){
+   		$(".li ul li").on("click",function(){
+   			var text=$(this).find("input").val();
+   			location.href="page/"+text
+   		})
+
+   		//滚动事件
+		var pos1=$("#content1").offset().top-100;
+		var pos2=$("#content2").offset().top-100;
+		var pos3=$("#content3").offset().top-100;
+
+		$(window).scroll(function(){
+			var dtop=$(document).scrollTop();
+			if(dtop>=10){
+				$("#guide").fadeIn(500);
+			}else{
+				$("#guide").fadeOut("fast");
+			}
+
+		$("#guide li").css({"background":"","opacity":"0.5"});
+			if(dtop>=pos1&&dtop<pos2){
+				$("#guide li#ali1").css({"background":"#999900","opacity":"1"});
+			}
+			else if(dtop>=pos2&&dtop<pos3){
+				$("#guide li#ali2").css({"background":"orange","opacity":"1"});
+			}
+			else if(dtop>=pos3){
+				$("#guide li#ali3").css({"background":"red","opacity":"1"});
+			}
+		})
+			//动画效果
+		function myclick(obj){
+			var href=$(obj).attr("href");
+			var pos=$(href).offset().top-25;
+			$("html,body").animate({scrollTop:pos},300);
+			return false;
+		}
+		$("#a0").click(function(){
+			myclick(this);
+		})
+		$("#a1").click(function(){
+			myclick(this);
+		})
+		$("#a2").click(function(){
+			myclick(this);
+		})
+	})
+   var guide=document.getElementById("guide");
+	var guideicon=guide.getElementsByTagName("li");
+	guide.onclick=function(e){
+		var ev=window.e||e;
+		var target=ev.target||ev.srcElement;
+		for(var i=0;i<guideicon.length;i++){
+			guideicon[i].style.opacity="0.5";
+			guideicon[i].style.background="";
+		}
+		switch(target.className){
+			case 'guidence1' :
+				guideicon[0].style.opacity="1";
+				guideicon[0].style.background="#999900";
+				break;
+			case 'guidence2':
+				guideicon[1].style.opacity="1";
+				guideicon[1].style.background="orange";
+				break;
+			case 'guidence3':
+				guideicon[2].style.opacity="1";
+				guideicon[2].style.background="red";
+				break;
+		}
+	}
+</script>
+</html>

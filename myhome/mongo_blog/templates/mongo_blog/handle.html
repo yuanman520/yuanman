@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>handle</title>
+    <link rel="icon" href="/static/images/icon.jpg" type="image/x-icon">
+     <style>
+        *{padding:0px;margin:0px}
+        body{background:#ffffcc;}
+        header{background:#333333;height:35px;position:relative;}
+        header img{padding-left:25px}
+        header span{position:absolute;color:rgba(255,255,255,0.8);font-size:17px;top:5px;cursor:pointer}
+        header span:last-child{right:80px;}
+        header span:hover{color:white}
+    </style>
+</head>
+<body>
+    <header>
+        <img src="/static/images/font.png.png" height="35px">
+        <span style="right:150px">首页</span>
+        <span>登录</span>
+    </header>
+
+    <p style="padding:20px;text-align:center">{{message}}</p>
+</body>
+<script src="/static/js/jquery-1.9.0.min.js"></script>
+<script>
+    window.onload=function(){
+        $("header span:first").click(function(){
+            location.href="/mongo/index"
+        })
+         $("header span:last").click(function(){
+           location.href="/mongo/login"
+        })
+    }
+</script>
+</html>

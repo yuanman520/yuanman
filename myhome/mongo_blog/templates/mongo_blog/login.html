@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户登录</title>
+		<link rel="icon" href="/static/images/icon.jpg" type="image/x-icon">
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+
+			body {
+				background: #f5f6f7;
+				box-sizing: border-box;
+			}
+
+			#container {
+				width: 380px;
+				height: auto;
+				margin: 125px auto;
+				background: white;
+				box-shadow: 0px 0px 1px 1px lightgrey;
+			}
+
+            div#user_login{
+                padding:12px 0px;
+                width:100%;
+                background:#1979ca;
+                color:white;
+                font-size:18px;
+            }
+
+			div#pic {
+				position: absolute;
+				left: 20px;
+				top: 18px;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+
+			#container>div {
+				text-align: center;
+			}
+
+			#container>div #form {
+				margin: 40px auto;
+				font-size: 16px;
+			}
+
+			input {
+				width: 200px;
+				height: 30px;
+				margin-bottom: 35px;
+				border-radius: 3px;
+				border: 1px solid lightgrey;
+				font-size: 13px;
+				box-shadow: 0px 0px 1px 1px lightblue;
+				padding-left: 5px;
+			}
+
+			input#submit {
+				background: #65c17a;
+				width: 180px;
+				font-size: 17px;
+				color: white;
+				box-shadow: none;
+				cursor: pointer;
+				position:relative;
+				left:15px
+			}
+
+			div#container p#error {
+				text-align: center;
+				font-size: 14px;
+				margin: -20px auto 20px auto;
+			}
+
+			div#container p#error span {
+				padding-left: 5px;
+				color: orange;
+				padding: 1px
+			}
+			#aaa:hover{color:#1979ca}
+			header{background:#333333;height:35px;position:relative;}
+			header img{padding-left:25px}
+			header span{position:absolute;color:rgba(255,255,255,0.8);font-size:17px;top:5px;cursor:pointer}
+			header span:last-child{right:80px;}
+			header span:hover{color:white}
+		</style>
+	</head>
+
+	<body>
+		 <header>
+			<img src="/static/images/font.png.png" height="35px">
+			<span style="right:80px">返回首页</span>
+		</header>
+		<div id="container">
+            <div id="user_login">用户登录</div>
+			<div>
+				<form action="/mongo/mypage" id="form" method="post" onsubmit="return myclick()">
+					{% csrf_token %}
+					<label for="username">邮箱&nbsp;&nbsp;</label><input type="email" id="username" name="user" placeholder='用户名'><br/>
+					<label for="password">密码&nbsp;&nbsp;</label><input type="password" id="password" name="password" placeholder='密码'><br/>
+					<p id="error">
+                        {% if msg %}
+						<span>{{ msg }}</span>
+                        {% endif %}
+					</p>
+					<input type="submit" id="submit" value="登 录">
+                    <a id="aaa" href="/mongo/register" style="color:grey;position:relative;left:45px;top:28px">注册</a>
+				</form>
+			</div>
+		</div>
+	</body>
+	<script src="/static/js/jquery-1.9.0.min.js"></script>
+	<script>
+		function myclick() {
+			var username = $("#username").val();
+			var password = $("#password").val();
+			if(username == "" || username == null) {
+				$("#error").css("display", "block").html("<span>用户名或密码错误</span>");
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		window.onload = function() {
+			$("form input:not('#submit')").focus(function() {
+				$(this).css("box-shadow", "0px 0px 1px 1px #56afe1");
+			}).blur(function() {
+				$(this).css("box-shadow", "0px 0px 1px 1px lightblue");
+			});
+
+			var pass;
+			var reg = /^([a-zA-Z0-9]|[._]){6,32}$/;
+			$("#submit").click(function() {
+				pass = $("#password").val();
+				if(pass == "" || pass == null || (!reg.test(pass))) {
+					$("#error").css("display", "block").html("<span>用户名或密码错误</span>");
+					return false;
+				} else {
+					return true;
+				}
+			})
+
+			$("input:not('submit')").keydown(function() {
+				$("#error").css("display", "none");
+			})
+			$("header span").click(function(){
+				location.href="/index"
+			})
+			$("#aaa").hover(function(){
+				$(this).css("color","#1979ca")
+			},function(){
+				$(this).css("color","grey")
+			})
+		}
+	</script>
+</html>
