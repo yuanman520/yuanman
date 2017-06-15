@@ -25,7 +25,7 @@ if __name__ == '__main__':
                 {
                     "type": "view",
                     "name": "绑定微信",
-                    "url":  "/bind_weixin"
+                    "url":  "http://www.baidu.com"
                 },
                 {
                     "name": "查询信息",
@@ -34,19 +34,19 @@ if __name__ == '__main__':
                         {
                             "type": "view",
                             "name": "IP查询",
-                            "url": "/query_ip"
+                            "url": "http://www.baidu.com"
                         },
                         {
                             "type": "view",
                             "name": "租户查询",
-                            "url": "/query_tenant"
+                            "url": "http://www.baidu.com"
                         },
                     ]
                 },
                 {
                     "type": "view",
                     "name": "关于我们",
-                    "url": "/about_us"
+                    "url": "http://www.baidu.com"
                 }
               ]
         }
